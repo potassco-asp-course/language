@@ -1,0 +1,325 @@
+% ------------------------------------------------------------
+\subsection{Choice rule}
+% ------------------------------------------------------------
+\begin{frame}[fragile]{Choice rule}
+  \label{eqn:choice:rule}
+  \begin{itemize}
+  \item \structure{Idea} Choices over subsets of literals
+  \item \structure{Syntax} A \alert{choice rule} is of the form
+    \[
+    \{a_1,\dots,a_m\}\leftarrow a_{m+1},\dots,a_n,\neg a_{n+1},\dots,\neg a_o
+    \]
+    where $0\leq m\leq n\leq o$ and each $a_i$ is an atom for $1\leq i\leq o$
+    \smallskip
+  \item<2-> \structure{Informal meaning} If the body is satisfied by the stable model at hand,\\
+    then any subset of $\{a_1,\dots,a_m\}$ can be included in the stable model
+    \medskip
+  \item<3-> \structure{Example}  % ,belowskip=2pt,aboveskip=2pt
+\begin{lstlisting}[basicstyle=\ttfamily\small]
+{ buy(pizza);buy(wine);buy(corn) } :- at(grocery).
+\end{lstlisting}
+  \item<4-> \structure{Example program}
+    \begin{align*}
+      & \{\;\{a\}\leftarrow b,\ b\leftarrow\;\}
+    \end{align*}
+  \end{itemize}
+\end{frame}
+% ------------------------------------------------------------
+\begin{frame}{Embedding in normal rules}
+  \begin{itemize}
+  \item A choice rule of form
+    \[
+    \{\alert<3>{a_1},\dots,\alert<3>{a_m}\}\leftarrow \alert<2>{a_{m+1},\dots,a_n,\neg a_{n+1},\dots,\neg a_o}
+    \]
+    can be translated into $2m+1$ normal rules
+    \[
+    \begin{array}{rcl@{\qquad}c@{\qquad}rcl}
+      b&\leftarrow&\multicolumn{5}{l}{\alert<2>{a_{m+1},\dots,a_n, \neg a_{n+1},\dots,\neg a_o}}
+      \\[5pt]
+      \alert<3>{a_1}&\leftarrow&b,\neg a'_1&\dots&\alert<3>{a_m}&\leftarrow&b,\neg a'_m\\
+               a'_1 &\leftarrow&  \neg a_1 &\dots&         a'_m &\leftarrow&  \neg a_m
+    \end{array}
+    \]
+    by introducing new atoms $b,a'_1,\dots,a'_m$
+  \end{itemize}
+\end{frame}
+% ------------------------------------------------------------
+\subsection{Cardinality rule}
+% ------------------------------------------------------------
+\begin{frame}[fragile]{Cardinality rule}
+  \label{eqn:cardinality:rule}
+  \begin{itemize}
+  \item \structure{Idea}
+    Control (lower) cardinality of subsets of literals
+  \item \structure{Syntax}
+    A \alert{cardinality rule} is the form
+    \[
+    a_0\leftarrow l~\{\ a_1,\dots,a_m,\neg a_{m+1},\dots,\neg a_n\ \}
+    \]
+    where $0\leq m\leq n$ and each $a_i$ is an atom for $1\leq i\leq n$;\\
+    $l$ is a non-negative integer (acting as a \alert{lower bound} on the body)
+    \smallskip
+  \item<2-> \structure{Informal meaning}
+    The head atom belongs to the stable model,\\
+    if at least $l$ positive/negative body literals are in/excluded in the stable model
+    \medskip
+  \item<3-> \structure{Example}
+\begin{lstlisting}[basicstyle=\ttfamily\small]
+pass(c42) :- 2 { pass(a1); pass(a2); pass(a3) }.
+\end{lstlisting}
+  \item<4-> \structure{Example program}
+    \begin{align*}
+      & \{\;a\leftarrow 1\;\{b,c\},\ b\leftarrow\;\}
+    \end{align*}
+  \end{itemize}
+\end{frame}
+%------------------------------------------------------------
+\begin{frame}{Embedding in normal rules}
+\begin{itemize}
+\item A cardinality rule of form
+\[
+\alert<2>{a_0}\leftarrow\alert<2>{l}~\{\ \alert<5>{a_1,\dots,a_m},\alert<6>{\neg a_{m+1},\dots,\neg a_n}\ \}
+\]
+is translated into the normal rule \
+\(
+\alert<2>{a_0}\leftarrow \mathit{ctr}(1,\alert<2>{l})
+\)
+\ \uncover<4->{and}
+\item<only@4-> [] for $0\leq k\leq l$ the rules
+\[
+\begin{array}{rclp{20pt}l}
+\mathit{ctr}(i, k{+}1)&\leftarrow&\mathit{ctr}({i+1}, k),\alert<5>{a_i}
+&&\\
+\mathit{ctr}(i, k)&\leftarrow&\mathit{ctr}({i+1}, k)
+&&\text{for }\alert<5>{1}\leq i\leq \alert<5>{m}
+\\[5pt]
+\mathit{ctr}(j, k{+}1)&\leftarrow&\mathit{ctr}({j+1}, k),\alert<6>{\neg a_j}
+\\
+\mathit{ctr}(j, k)&\leftarrow&\mathit{ctr}({j+1}, k)
+&&\text{for }\alert<6>{m+1}\leq j\leq \alert<6>{n}
+\\[5pt]
+\mathit{ctr}(\alert<7>{n+1}, \alert<7>{0})&\leftarrow&
+&&
+\end{array}
+\]
+\item<3->
+The atom $\mathit{ctr}(i,j)$ represents the fact that at least $j$ of the
+literals having an equal or greater index than $i$, are in a stable model
+\end{itemize}
+\end{frame}
+% ------------------------------------------------------------
+\begin{frame}{An example}
+\begin{itemize}
+\item Program
+  \(
+  \{  a\leftarrow,\ c\leftarrow 1~\{a,b\}  \}
+  \)
+  has the stable model $\{a,c\}$
+\item<2-> Translating the cardinality rule yields the rules
+\[
+\begin{array}[t]{rcl}
+a&\leftarrow&
+\end{array}
+\qquad
+\begin{array}[t]{rcl}
+c&\leftarrow& \mathit{ctr}(1,1)
+\\
+\mathit{ctr}(1, 2)&\leftarrow&\mathit{ctr}(2, 1),a
+\\
+\mathit{ctr}(1, 1)&\leftarrow&\mathit{ctr}(2, 1)
+\\
+\mathit{ctr}(2, 2)&\leftarrow&\mathit{ctr}(3, 1),b
+\\
+\mathit{ctr}(2, 1)&\leftarrow&\mathit{ctr}(3, 1)
+\\
+\mathit{ctr}(1, 1)&\leftarrow&\mathit{ctr}(2, 0),a
+\\
+\mathit{ctr}(1, 0)&\leftarrow&\mathit{ctr}(2, 0)
+\\
+\mathit{ctr}(2, 1)&\leftarrow&\mathit{ctr}(3, 0),b
+\\
+\mathit{ctr}(2, 0)&\leftarrow&\mathit{ctr}(3, 0)
+\\
+\mathit{ctr}(3, 0)&\leftarrow&
+\end{array}
+\]
+having stable model
+\(
+\{
+a,
+\mathit{ctr}(3, 0),
+\mathit{ctr}(2, 0),
+\mathit{ctr}(1, 0),
+\mathit{ctr}(1, 1),
+c
+\}
+\)
+\end{itemize}
+\end{frame}
+% ------------------------------------------------------------
+\begin{frame}{\dots\ and vice versa}
+  \begin{itemize}
+  \item A normal rule
+    \[
+    a_0\leftarrow a_1,\dots,a_m, \neg a_{m+1},\dots,\neg a_n
+    \]
+  \item[] can be represented by the cardinality rule
+    \[
+    a_0\leftarrow n \ \{a_1,\dots,a_m, \neg a_{m+1},\dots,\neg a_n\}
+    \]
+  \end{itemize}
+\end{frame}
+% ------------------------------------------------------------
+\begin{frame}{Cardinality rules with upper bounds}
+  \begin{itemize}
+  \item A rule of the form
+    \begin{equation}\label{eq:cardinality:constraint}
+      a_0\leftarrow \alert<3>{l~\{\ a_1,\dots,a_m,\neg a_{m+1},\dots,\neg a_n\ \}~u}
+    \end{equation}
+    where $0\leq m\leq n$ and each $a_i$ is an atom for $1\leq i\leq n$;\\
+    $l$ and $u$ are non-negative integers
+  \item<2-> []
+    stands for
+    \[
+    \begin{array}{rcl}
+      a_0 &\leftarrow& b, \neg c\\
+      b   &\leftarrow& l~\{\ a_1,\dots,a_m,\neg a_{m+1},\dots,\neg a_n\ \}\\
+      c   &\leftarrow& u{+}1~\{\ a_1,\dots,a_m,\neg a_{m+1},\dots,\neg a_n\ \}
+    \end{array}
+    \]
+    where $b$ and $c$ are new symbols
+    \medskip
+  \item<3-> \structure{Note}
+    The expression in the body of the cardinality rule \eqref{eq:cardinality:constraint} is
+    referred to as a \alert<3>{cardinality constraint} with lower and upper bound $l$ and $u$
+  \end{itemize}
+\end{frame}
+% ------------------------------------------------------------
+\begin{frame}{Cardinality constraints}
+  \begin{itemize}
+  \item \structure{Syntax} A \alert{cardinality constraint} is of the form
+    \[
+    l~\{\ a_1,\dots,a_m,\neg a_{m+1},\dots,\neg a_n\ \}~u
+    \]
+    where $0\leq m\leq n$ and each $a_i$ is an atom for $1\leq i\leq n$;\\
+    $l$ and $u$ are non-negative integers
+    \smallskip
+  \item<2-> \structure{Informal meaning} A cardinality constraint is satisfied by a stable model $X$,
+    if the number of its contained literals satisfied by $X$ is between $l$ and $u$ (inclusive)
+  \item<3->
+    In other words, if
+    \[
+    l\leq|\left(\{a_1,\dots,a_m\}\cap X\right)\cup\left(\{a_{m+1},\dots,a_n\}\setminus X\right)|\leq u
+    \]
+  % \item \structure{Conditions} \qquad
+  %   \(
+  %   l\ \{a_1:b_1,\dots,a_m:b_m\}\ u
+  %   \)
+  %
+  %   where $B_1,\dots,B_m$ are used for restricting instantiations of
+  %   variables occurring in $a_1,\dots,a_m$
+  \end{itemize}
+\end{frame}
+% ------------------------------------------------------------
+\begin{frame}[fragile]{Cardinality constraints as heads}
+  \begin{itemize}
+  \item A rule of the form
+    \[
+    l~\{a_1,\dots,a_m,\neg a_{m+1},\dots,\neg a_n\}~u\leftarrow a_{n+1},\dots,a_o,\neg a_{o+1},\dots,\neg a_p
+    \]
+    where $0\leq m\leq n\leq o\leq p$ and each $a_i$ is an atom for $1\leq i\leq p$;\\
+    $l$ and $u$ are non-negative integers
+    \uncover<2->{stands for
+      \[
+    \begin{array}{rcl}
+      b                 &\leftarrow& a_{n+1},\dots,a_o, \neg a_{o+1},\dots,\neg a_p\\
+      \{a_1,\dots,a_m\} &\leftarrow& b\\
+      c                 &\leftarrow& l~\{a_1,\dots,a_m,,\neg a_{m+1},\dots,\neg a_n\}~u\\
+      &\leftarrow& b, \neg c
+    \end{array}
+    \]
+    where $b$ and $c$ are new symbols}
+    \smallskip
+  \item<3-> \structure{Example}
+\begin{lstlisting}[basicstyle=\ttfamily\small]
+1{color(v42,red);color(v42,green);color(v42,blue)}1.
+\end{lstlisting}
+%    \lstinline[basicstyle=\ttfamily\small]{1 \{ color(v42,red);color(v42,green);color(v42,blue) \} 1.}
+  \end{itemize}
+\end{frame}
+% ------------------------------------------------------------
+\begin{frame}{Full-fledged cardinality rules}
+  \begin{itemize}
+  \item A rule of the form
+    \[
+    \alert<6>{l_0~S_0~u_0}\leftarrow\alert<4>{l_1~S_1~u_1},\dots,\alert<4>{l_n~S_n~u_n}
+    \]
+    where each $\alert<3>{l_i~S_i~u_i}$ is a cardinality constraint for $0\leq i\leq n$
+  \item<2-> [] stands for % $0\leq i\leq n$
+    \[
+    \begin{array}{rclp{20pt}rcl}
+            \alert<5>{a}&\alert<5>{\leftarrow}&\multicolumn{5}{l}{\alert<4,5>{b_1},\dots,\alert<4,5>{b_n},\alert<4,5>{\neg
+                                                c_1},\dots,\alert<4,5>{\neg c_n}}\\[10pt]
+\alert<6>{\poslits{S_0}}&\alert<6>{\leftarrow}&\alert<5>{a}\\
+                        &\alert<6>{\leftarrow}&\alert<5>{a}\alert<6>{,\neg b_0}&&\alert<3-4,6>{b_i}&\alert<3-4,6>{\leftarrow}&\alert<3-4,6>{l_i~S_i}\\
+                        &\alert<6>{\leftarrow}&\alert<5>{a}\alert<6>{,     c_0 }&&\alert<3-4,6>{c_i}&\alert<3-4,6>{\leftarrow}&\alert<3-4,6>{u_i{+}1~S_i}
+    \end{array}
+    \]
+    where $a,b_i,c_i$ are new symbols (and $\cdot^+$ is defined as on Slide~\ref{eqn:rule})
+  \end{itemize}
+\end{frame}
+% ------------------------------------------------------------
+\subsection{Weight rule}
+% ------------------------------------------------------------
+\begin{frame}{Weight rule}
+  \label{eqn:weight:rule}
+  \begin{itemize}
+  \item \structure{Idea} Bound (lower) sum of subsets of literal weights
+  \item \structure{Syntax} A \alert{weighted literal} $w:k$ associates the weight $w$ with literal $k$
+  \item \structure{Syntax} A \alert{weight rule} is the form
+    \[
+      a_0\leftarrow l~\{\ w_1:a_1,\dots,w_m:a_m,w_{m+1}:\neg a_{m+1},\dots,w_n:\neg a_n\ \}
+    \]
+    where $0\leq m\leq n$ and each $a_i$ is an atom;\\
+    $l$ and $w_i$ are integers for $1\leq i\leq n$
+    \medskip
+  \item<2-> \structure{Informal meaning}
+    The head atom belongs to the stable model,\\
+    if the sum of weights associated with positive/negative body literals in/excluded in the stable model
+    is at least $l$
+    \medskip
+  \item<3-> \structure{Note} A cardinality rule is a weight rule where $w_i=1$  for $0\leq i\leq n$
+  \end{itemize}
+\end{frame}
+% ------------------------------------------------------------
+\begin{frame}[fragile]{Weight constraints}
+  \begin{itemize}
+  \item \structure{Syntax} A \alert{weight constraint} is of the form
+    \[
+    l~\{\ w_1:a_1,\dots,w_m:a_m,w_{m+1}:\neg a_{m+1},\dots,w_n:\neg a_n\ \}~u
+    \]
+    where $0\leq m\leq n$ and each $a_i$ is an atom;\\
+    $l,u$ and $w_i$ are integers for $1\leq i\leq n$
+    \smallskip
+  \item<2-> \structure{Meaning} A weight constraint is satisfied by a stable model $X$, if
+    \[
+    l\leq\left(
+      \textstyle{\sum_{1\leq i\leq m, a_i    \in X}}\; w_i
+      +
+      \textstyle{\sum_{m <   i\leq n, a_i\not\in X}}\; w_i
+    \right)\leq u
+    \]
+  \item<3-> \structure{Note} (Cardinality and) weight constraints amount to constraints on (count and) sum aggregate functions
+    \medskip
+  \item<4-> \structure{Example}
+\begin{lstlisting}[basicstyle=\ttfamily\small]
+5 { 4:course(db); 6:course(ai); 3:course(xml) } 10
+\end{lstlisting}
+  \end{itemize}
+\end{frame}
+% ----------------------------------------------------------------------
+%
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../main"
+%%% End:

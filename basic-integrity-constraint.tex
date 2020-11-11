@@ -1,0 +1,82 @@
+%------------------------------------------------------------
+\begin{frame}[fragile]{Integrity constraint}
+  \begin{itemize}
+  \item \structure{Idea}  Eliminate unwanted solution candidates
+  \item \structure{Syntax}  An \alert{integrity constraint} is of the form
+    \[
+      \leftarrow a_1,\dots,a_m,\neg a_{m+1},\dots,\neg a_n
+    \]
+    where $0\leq m\leq n$ and each $a_i$ is an atom for $1\leq i\leq n$
+    \medskip
+  \item<2-> \structure{Example}
+\begin{lstlisting}
+ :- edge(3,7), color(3,red), color(7,red).
+\end{lstlisting}
+  \item<3-> \structure{Example programs}
+    \begin{align*}
+      & \{\;
+        a \leftarrow \neg b, \
+        b \leftarrow \neg a
+        \;\}&\uncover<4->{\{a\}\quad\{b\}}\\
+      & \{\;
+        a \leftarrow \neg b, \
+        b \leftarrow \neg a
+        \;\}
+        \cup
+        \{\;
+        \leftarrow a
+        \;\}&\only<5->{\phantom{\{a\}}\quad\{b\}}\\
+      & \{\;
+        a \leftarrow \neg b, \
+        b \leftarrow \neg a
+        \;\}
+        \cup
+        \{\;
+        \leftarrow \neg a
+        \;\}&\only<6->{\{a\}\quad\phantom{\{b\}}}
+    \end{align*}
+  \end{itemize}
+\end{frame}
+%------------------------------------------------------------
+\begin{frame}{Embedding in normal rules}
+  \begin{itemize}
+  \item<2-> \structure{Translation} \ An integrity constraint of form
+    \[
+      \leftarrow a_1,\dots,a_m,\neg a_{m+1},\dots,\neg a_n
+    \]
+    can be translated into the normal rule
+    \[
+      x \leftarrow a_1,\dots,a_m,\neg a_{m+1},\dots,\neg a_n,\neg x
+    \]
+    where $x$ is a new symbol % , that is, $x\not\in\mathcal{A}$
+  \item<3-> \structure{Example programs}
+    \begin{align*}
+      & \{\;
+        a \leftarrow \neg b, \
+        b \leftarrow \neg a
+        \;\}&\uncover<4->{\{a\}\quad\{b\}}\\
+      & \{\;
+        a \leftarrow \neg b, \
+        b \leftarrow \neg a
+        \;\}
+        \cup
+        \{\;
+        \only<5->{x}\leftarrow a\only<5->{,\neg x}
+        \;\}&\only<6->{\phantom{\{a\}}\quad\{b\}}\\
+      & \{\;
+        a \leftarrow \neg b, \
+        b \leftarrow \neg a
+        \;\}
+        \cup
+        \{\;
+        \only<5->{x}\leftarrow \neg a\only<5->{,\neg x}
+        \;\}&\only<6->{\{a\}\quad\phantom{\{b\}}}
+    \end{align*}
+  \end{itemize}
+\end{frame}
+% ------------------------------------------------------------
+%
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../main"
+%%% End:
