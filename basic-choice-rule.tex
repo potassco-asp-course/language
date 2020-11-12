@@ -1,0 +1,49 @@
+% ----------------------------------------------------------------------
+\begin{frame}[fragile]{Choice rule}
+  \label{eqn:choice:rule}
+  \begin{itemize}
+  \item \structure{Idea} Choices over subsets of literals
+  \item \structure{Syntax} A \alert{choice rule} is of the form
+    \[
+    \{a_1,\dots,a_m\}\leftarrow a_{m+1},\dots,a_n,\neg a_{n+1},\dots,\neg a_o
+    \]
+    where $0\leq m\leq n\leq o$ and each $a_i$ is an atom for $1\leq i\leq o$
+    \smallskip
+  \item<2-> \structure{Informal meaning} If the body is satisfied by the stable model at hand,\\
+    then any subset of $\{a_1,\dots,a_m\}$ can be included in the stable model
+    \medskip
+  \item<3-> \structure{Example}  % ,belowskip=2pt,aboveskip=2pt
+\begin{lstlisting}[basicstyle=\ttfamily\small]
+{ buy(pizza);buy(wine);buy(corn) } :- at(grocery).
+\end{lstlisting}
+  \item<4-> \structure{Example program}
+    \begin{align*}
+      & \{\;\{a\}\leftarrow b,\ b\leftarrow\;\}
+    \end{align*}
+  \end{itemize}
+\end{frame}
+% ----------------------------------------------------------------------
+\begin{frame}{Embedding in normal rules}
+  \begin{itemize}
+  \item A choice rule of form
+    \[
+    \{\alert<3>{a_1},\dots,\alert<3>{a_m}\}\leftarrow \alert<2>{a_{m+1},\dots,a_n,\neg a_{n+1},\dots,\neg a_o}
+    \]
+    can be translated into $2m+1$ normal rules
+    \[
+    \begin{array}{rcl@{\qquad}c@{\qquad}rcl}
+      b&\leftarrow&\multicolumn{5}{l}{\alert<2>{a_{m+1},\dots,a_n, \neg a_{n+1},\dots,\neg a_o}}
+      \\[5pt]
+      \alert<3>{a_1}&\leftarrow&b,\neg a'_1&\dots&\alert<3>{a_m}&\leftarrow&b,\neg a'_m\\
+               a'_1 &\leftarrow&  \neg a_1 &\dots&         a'_m &\leftarrow&  \neg a_m
+    \end{array}
+    \]
+    by introducing new atoms $b,a'_1,\dots,a'_m$
+  \end{itemize}
+\end{frame}
+% ----------------------------------------------------------------------
+%
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../main"
+%%% End:
