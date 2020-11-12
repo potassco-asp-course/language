@@ -32,16 +32,27 @@
     can be translated into $2m+1$ normal rules
     \[
     \begin{array}{rcl@{\qquad}c@{\qquad}rcl}
-      a'&\leftarrow&\multicolumn{5}{l}{\alert<2>{a_{m+1},\dots,a_n, \neg a_{n+1},\dots,\neg a_o}}
-      \\[5pt]
-      \alert<3>{a_1}&\leftarrow&a',\neg a'_1&\dots&\alert<3>{a_m}&\leftarrow&a',\neg a'_m\\
-               a'_1 &\leftarrow&  \neg a_1 &\dots&         a'_m &\leftarrow&  \neg a_m
+      x&\leftarrow&\multicolumn{5}{l}{\alert<2>{a_{m+1},\dots,a_n, \neg a_{n+1},\dots,\neg a_o}}
+      \\[3pt]
+      \alert<3>{a_1}&\leftarrow&x,\neg x_1&\dots&\alert<3>{a_m}&\leftarrow&x,\neg x_m\\
+                x_1 &\leftarrow&  \neg a_1&\dots&          x_m &\leftarrow&  \neg a_m
     \end{array}
     \]
-    by introducing new atoms $a',a'_1,\dots,a'_m$
+    by introducing new atoms $x,x_1,\dots,x_m$
+    \smallskip
   \item<2-> \structure{Example program}
     \begin{align*}
-      & \{\;\{a\}\leftarrow b,\ b\leftarrow\;\}&\uncover<5->{\{b\}\quad\{a,b\}}
+      \only<2>{& \{\;\{a\}\leftarrow b,\ b\leftarrow\;\}&\{b\}\quad\{a,b\}}
+      \only<3->{
+      \left\{
+      \begin{array}{rcl}
+        x&\leftarrow& b         \\[3pt]
+        a&\leftarrow& x,\neg x_1\\
+        x_1&\leftarrow&   \neg a
+      \end{array}
+      \right\}
+      &\cup \left\{\;b\leftarrow\;\right\}
+      &\uncover<4->{\{b,x,x_1\}\quad\{a,b,x\}}}
     \end{align*}
   \end{itemize}
 \end{frame}
