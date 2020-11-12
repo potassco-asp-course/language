@@ -2,17 +2,18 @@
 \begin{frame}[fragile]{Integrity constraint}
   \begin{itemize}
   \item \structure{Purpose}  \ Eliminate unwanted solution candidates
+    \smallskip
   \item \structure{Syntax}  \ An \alert{integrity constraint} is of the form
     \[
       \leftarrow a_1,\dots,a_m,\neg a_{m+1},\dots,\neg a_n
     \]
     where $0\leq m\leq n$ and each $a_i$ is an atom for $1\leq i\leq n$
     \medskip
-  \item<2-> \structure{Example}
+  \item<only@2> \structure{Example}
 \begin{lstlisting}
  :- edge(3,7), color(3,red), color(7,red).
 \end{lstlisting}
-  \item<3-> \structure{Example programs}
+  \item<only@3-> \structure{Example programs}
     \begin{align*}
       & \{\;
         a \leftarrow \neg b, \
@@ -49,28 +50,29 @@
       x \leftarrow a_1,\dots,a_m,\neg a_{m+1},\dots,\neg a_n,\neg x
     \]
     where $x$ is a new symbol % , that is, $x\not\in\mathcal{A}$
+    \smallskip
   \item<3-> \structure{Example programs}
     \begin{align*}
       & \{\;
         a \leftarrow \neg b, \
         b \leftarrow \neg a
-        \;\}&\uncover<4->{\{a\}\quad\{b\}}\\
+        \;\}&\{a\}\quad\{b\}\\
       & \{\;
         a \leftarrow \neg b, \
         b \leftarrow \neg a
         \;\}
         \cup
         \{\;
-        \only<5->{x}\leftarrow a\only<5->{,\neg x}
-        \;\}&\only<6->{\phantom{\{a\}}\quad\{b\}}\\
+        \only<4->{x}\leftarrow a\only<4->{,\neg x}
+        \;\}&\only<5->{\phantom{\{a\}}\quad\{b\}}\\
       & \{\;
         a \leftarrow \neg b, \
         b \leftarrow \neg a
         \;\}
         \cup
         \{\;
-        \only<5->{x}\leftarrow \neg a\only<5->{,\neg x}
-        \;\}&\only<6->{\{a\}\quad\phantom{\{b\}}}
+        \only<4->{x}\leftarrow \neg a\only<4->{,\neg x}
+        \;\}&\only<5->{\{a\}\quad\phantom{\{b\}}}
     \end{align*}
   \end{itemize}
 \end{frame}

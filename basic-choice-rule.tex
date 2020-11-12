@@ -3,6 +3,7 @@
   \label{eqn:choice:rule}
   \begin{itemize}
   \item \structure{Purpose} \ Provide choices over subsets of atoms
+    \smallskip
   \item \structure{Syntax} \ A \alert{choice rule} is of the form
     \[
     \{a_1,\dots,a_m\}\leftarrow a_{m+1},\dots,a_n,\neg a_{n+1},\dots,\neg a_o
@@ -12,11 +13,11 @@
   \item<2-> \structure{Informal meaning} \ If the body is satisfied by the stable model,\\
     any subset of $\{a_1,\dots,a_m\}$ can be included in the stable model
     \medskip
-  \item<3-> \structure{Example}  % ,belowskip=2pt,aboveskip=2pt
+  \item<only@3> \structure{Example}
 \begin{lstlisting}[basicstyle=\ttfamily\small]
 { buy(pizza);buy(wine);buy(corn) } :- at(grocery).
 \end{lstlisting}
-  \item<4-> \structure{Example program}
+  \item<only@4-> \structure{Example program}
     \begin{align*}
       & \{\;\{a\}\leftarrow b,\ b\leftarrow\;\}&\uncover<5->{\{b\}\quad\{a,b\}}
     \end{align*}
@@ -31,9 +32,9 @@
     \]
     can be translated into $2m+1$ normal rules
     \[
-    \begin{array}{rcl@{\qquad}c@{\qquad}rcl}
+    \begin{array}{rcl@{\quad}c@{\quad}rcl}
       x&\leftarrow&\multicolumn{5}{l}{\alert<2>{a_{m+1},\dots,a_n, \neg a_{n+1},\dots,\neg a_o}}
-      \\[3pt]
+      \\
       \alert<3>{a_1}&\leftarrow&x,\neg x_1&\dots&\alert<3>{a_m}&\leftarrow&x,\neg x_m\\
                 x_1 &\leftarrow&  \neg a_1&\dots&          x_m &\leftarrow&  \neg a_m
     \end{array}
@@ -46,7 +47,7 @@
       \only<3->{
       \left\{
       \begin{array}{rcl}
-        x&\leftarrow& b         \\[3pt]
+        x&\leftarrow& b         \\
         a&\leftarrow& x,\neg x_1\\
         x_1&\leftarrow&   \neg a
       \end{array}
