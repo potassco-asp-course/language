@@ -1,0 +1,26 @@
+% ------------------------------------------------------------
+\begin{frame}{Cardinality constraints}
+  \begin{itemize}
+  \item \structure{Syntax} A \alert{cardinality constraint} is of the form
+    \[
+    l~\{\ a_1,\dots,a_m,\neg a_{m+1},\dots,\neg a_n\ \}~u
+    \]
+    where $0\leq m\leq n$ and each $a_i$ is an atom for $1\leq i\leq n$;\\
+    $l$ and $u$ are non-negative integers
+    \smallskip
+  \item<2-> \structure{Informal meaning} A cardinality constraint is satisfied by a stable model $X$,
+    if the number of its contained literals satisfied by $X$ is between $l$ and $u$ (inclusive)
+  \item<3->
+    In other words, if
+    \[
+    l\leq|\left(\{a_1,\dots,a_m\}\cap X\right)\cup\left(\{a_{m+1},\dots,a_n\}\setminus X\right)|\leq u
+    \]
+  % \item \structure{Conditions} \qquad
+  %   \(
+  %   l\ \{a_1:b_1,\dots,a_m:b_m\}\ u
+  %   \)
+  %
+  %   where $B_1,\dots,B_m$ are used for restricting instantiations of
+  %   variables occurring in $a_1,\dots,a_m$
+  \end{itemize}
+\end{frame}
