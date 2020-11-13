@@ -1,0 +1,35 @@
+% ------------------------------------------------------------
+\begin{frame}{\gringo~3 versus 4/5}
+\begin{itemize}
+\item The input language of \gringo\ series 4/5 comprises
+  \begin{itemize}
+  \item ASP-Core-2
+  \item concepts from \lparse\ and \gringo\ 3
+  \end{itemize}
+\item<2-> \structure{Example}
+  The \gringo\ 3 rule
+  \begin{itemize}
+  \item
+\begin{semiverbatim}
+  r(X) : p(X) : not q(X) :- r(X) : p(X) : not q(X),
+
+  \ \ \ \ \ \ 1 \{\ r(X) : p(X) : not q(X) \}.
+\end{semiverbatim}
+
+  \item<3->[] can be written as follows in the language of \gringo\ 4/5:
+    \smallskip
+  \item<3->
+\begin{semiverbatim}
+  r(X) : p(X), not q(X) :- r(X) : p(X), not q(X);
+
+  \ \ \ \ \ \ \only<3>{1 <= \#count \{\ 1,r(X) : r(X), p(X), not q(X) \}.}\only<4->{1 \{\ r(X) : p(X), not q(X) \}.}
+\end{semiverbatim}
+  \end{itemize}
+\item<5-> \structure{Note} Directives {\small\lstinline{\#compute}}, {\small\lstinline{\#domain}}, and {\small\lstinline{\#hide}} are discontinued
+\item<6-> \structure{Attention}
+  \begin{itemize}
+  \item The languages of \gringo\ 3 and 4/5 are not fully compatible
+  \item Many example programs in the literature are written for \gringo\ 3
+  \end{itemize}
+\end{itemize}
+\end{frame}
