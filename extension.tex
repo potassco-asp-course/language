@@ -1,0 +1,136 @@
+% ------------------------------------------------------------
+\section{Extended language}
+% ------------------------------------------------------------
+\subsection{Conditional literal}
+% ------------------------------------------------------------
+\begin{frame}[fragile]{Conditional literals}
+  \begin{itemize}
+  \item \structure{Syntax} A \alert{conditional literal} is of the form
+    \[
+     l:l_1,\dots, l_n
+    \]
+    where $l$ and $l_i$ are literals for $0\leq i\leq n$
+  \item \structure{Informal meaning}
+    A conditional literal can be regarded as the list of elements in the
+    set $\{ l\mid l_1,\dots, l_n\}$
+  \item<2-> \structure{Note} The expansion of conditional literals is context dependent
+  \item<3-> \structure{Example} \
+  Given `\;\verb+p(1..3).  q(2).+'
+
+  \smallskip%
+  \parbox{\linewidth}{\footnotesize%
+  \begin{semiverbatim}
+  \alert<4,5>{r(X)\,:\,p(X)\!,\,not\,q(X)} :- \alert<4,6>{r(X)\,:\,p(X)\!,\,not\,q(X)}; 1\,\{\,\alert<4,7>{r(X)\,:\,p(X)\!,\,not\,q(X)}\,\}.
+  \end{semiverbatim}}
+
+  \smallskip
+  is instantiated to
+
+  \medskip%
+  \parbox{\linewidth}{\footnotesize%
+  \begin{semiverbatim}
+  \alert<5>{r(1); r(3)} :- \alert<6>{r(1), r(3)}, 1 \{~\alert<7>{r(1); r(3)} \}.
+  \end{semiverbatim}}
+  \end{itemize}
+\end{frame}
+% ------------------------------------------------------------
+\subsection{Optimization statement}
+% ------------------------------------------------------------
+\begin{frame}{Optimization statement}
+  \label{eq:minimize}
+  \begin{itemize}
+  \item \structure{Purpose} Express (multiple) cost functions subject to minimization\\ and/or maximization
+  \item \structure{Syntax} A \alert{minimize statement} is of the form
+    \[
+    \mathit{minimize}~\{\ {w_1@p_1}\mathbin{:}{ l_{1_1},\dots, l_{m_1}};
+                          \dots;
+                          {w_n@p_n}\mathbin{:}{ l_{1_n},\dots, l_{m_n}}\ \}.
+    \]
+    where each $l_{j_i}$ is a literal;
+    and $w_i$ and $p_i$ are integers for $1\leq i\leq n$
+    \smallskip
+  \item<2-> [] Priority levels, $p_i$, allow for representing lexicographically ordered minimization objectives
+%,    greater levels being more significant than smaller ones
+    \smallskip
+  \item<3-> \structure{Meaning} A minimize statement is a directive that instructs the ASP solver to
+    compute optimal stable models by minimizing a weighted sum of elements
+  \end{itemize}
+\end{frame}
+\begin{frame}[fragile]{Optimization statement}
+  \begin{itemize}
+  \item<1-> A maximize statement of the form
+    \[
+    \mathit{maximize}~\{\ w_1@p_1:l_1,\dots,w_n@p_n:l_n\ \}
+    \]
+    stands for
+    \(
+    \mathit{minimize}~\{\ {-}w_1@p_1:l_1,\dots,{-}w_n@p_n:l_n\ \}
+    \)
+    \medskip
+  \item<2-> \structure{Example}
+    When configuring a computer, we may want to maximize hard disk capacity,
+    while minimizing price
+
+\parbox{\linewidth}{\footnotesize%
+\begin{semiverbatim}
+  \#maximize \{\ \alt<3->{C@1:hd(I,P,C)}{250@1:hd(1); 500@1:hd(2); 750@1:hd(3); 1000@1:hd(4)} \}.
+
+  \#minimize \{\ \alt<3->{P@2:hd(I,P,C)}{30@2:hd(1);  40@2:hd(2);  60@2:hd(3);   80@2:hd(4)} \}.
+\end{semiverbatim}}
+
+  \item<2-> [] The priority levels indicate that (minimizing) price is more important than (maximizing) capacity
+  \end{itemize}
+\end{frame}
+%------------------------------------------------------------
+\begin{frame}[fragile]{Weak constraints}
+  \medskip
+  \begin{itemize}
+  \item<1-> Weak constraints are an alternative to minimize statements
+    \smallskip
+  \item<2-> \structure{Syntax} \quad $\colonsim  l_1,\dots, l_n\ [w@l]$
+
+    \smallskip
+    where each $l_i$ is a literal for $1\leq i\leq n$;
+    and $w$ and $p$ are integers
+    \medskip
+  \item<3-> \structure{Example}
+\begin{semiverbatim}
+\alt<4->{ :~ hd(I,P,C). [P@2]}{ :~ hd(1). [30@2]
+ :~ hd(2). [40@2]
+ :~ hd(3). [60@2]
+ :~ hd(4). [80@2]}
+\end{semiverbatim}
+  \end{itemize}
+\end{frame}
+% ------------------------------------------------------------
+%------------------------------------------------------------
+% \begin{frame}[fragile]{Domain predicates in \texttt{lparse} and \texttt{gringo}}
+%   \begin{itemize}
+%   \item The predicates of literals on the right-hand side of a colon ($:$)
+%         must be defined from facts without any negative recursion
+%   \item Such \alert{domain predicates} are fully evaluated by \texttt{lparse} and \texttt{gringo}
+%   \end{itemize}
+%
+%   \begin{itemize}
+%   \item \structure{Example}
+%   \begin{verbatim}
+%   p(1). p(2).
+%   q(X) :- p(X), not p(X+1).
+%   q(X) :- p(X), q(X+1).
+%   r(X) :- p(X), not r(X+1).
+%   \end{verbatim}~\\[-5ex]
+%     \begin{itemize}
+%     \item \verb+p/1+ and \verb+q/1+ are domain predicates because
+%           none of them negatively depends on itself.
+%     \item \verb+r/1+ is not a domain predicate because
+%           it is defined in terms of~ \verb-not r(X+1)-.
+%     \end{itemize}
+%
+%   \item See \texttt{gringo} documentation for further details.
+%   \end{itemize}
+% \end{frame}
+%------------------------------------------------------------
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../asp"
+%%% End:
