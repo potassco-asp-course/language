@@ -1,0 +1,70 @@
+% ----------------------------------------------------------------------
+\begin{frame}{\aspif\ format}
+  \begin{itemize}
+  \item The \aspif\ format consists of
+    \begin{itemize}
+    \item rule statements
+    \item minimize statements
+    \item projection statements
+    \item output statements
+    \item external statements
+    \item assumption statements
+    \item heuristic statements
+    \item edge statements
+    \item theory terms and atoms
+    \item comments
+    \end{itemize}
+  \item Line-oriented format
+  \end{itemize}
+\end{frame}
+% ----------------------------------------------------------------------
+\begin{frame}{Rule statements}
+  \newcommand\Space{\textvisiblespace}
+  Rule statements have the form
+  \hfill \(1 \Space H \Space B\)\qquad\qquad
+  \begin{itemize}
+  \item<2-> Head $H$ has form
+    \hfill\(h \Space m \Space a_1 \Space \dots \Space a_m\)\qquad\qquad
+    \begin{itemize}
+    \item $h \in \{\texttt{0},\texttt{1}\}$ determines whether\\ the head is a disjunction or choice,
+    \item $m \geq 0$ is the number of head elements, and
+    \item each $a_i$ is a positive literal
+    \end{itemize}
+  \item<2->[] Heads are disjunctions or choices, including the special case of singular disjunctions for representing normal rules.
+  \item<3-> Body $B$ has one of two forms
+    \begin{itemize}
+    \item normal bodies have form
+      \hfill\(\texttt{0} \Space n \Space l_{1} \Space \dots \Space l_n\)\qquad\qquad
+      \begin{itemize}
+      \item $n \geq 0$ is the length of the rule body, and
+      \item each $l_i$ is a literal.
+      \end{itemize}
+    \item weight bodies have form
+      \hfill\(\texttt{1} \Space l \Space n \Space l_1 \Space w_1  \Space \dots \Space l_n \Space w_n\)\qquad\qquad
+      \begin{itemize}
+      \item $l$ is a positive integer to denote the lower bound,
+      \item $n \geq 0$ is the number of literals in the rule body, and
+      \item each $l_i$ and $w_i$ are a literal and a positive integer
+      \end{itemize}
+    \end{itemize}
+%  \item All types of ASP rules are included in the above rule format
+  \end{itemize}
+\end{frame}
+% ----------------------------------------------------------------------
+\begin{frame}[fragile,c]{Example}
+\begin{center}
+{\begin{minipage}[t]{0.3\textwidth}
+\lstinputlisting[basicstyle=\ttfamily]{language/ezy.lp}%
+\end{minipage}}%
+\qquad\pause\qquad%\frame%
+{\begin{minipage}[t]{0.3\textwidth}
+\lstinputlisting[basicstyle=\ttfamily]{language/ezy.aspif}%
+\end{minipage}}%
+\end{center}
+\end{frame}
+% ----------------------------------------------------------------------
+%
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../main"
+%%% End:

@@ -1,0 +1,125 @@
+% ----------------------------------------------------------------------
+\begin{frame}{\smodels\ format}
+  \begin{itemize}
+  \item The \smodels\ format consists of
+    \begin{itemize}
+    \item normal rules
+    \item choice rules
+    \item cardinality rules
+    \item weight rules
+    \item minimization statements
+    \end{itemize}
+  \item Block-oriented format
+  \item<2-> \structure{Note} Minimization statements are not part of the logic program
+  \end{itemize}
+\end{frame}
+% ----------------------------------------------------------------------
+\begin{frame}[c]{\smodels\ format in detail}
+  \footnotesize
+  \newcommand{\myspace}{\mbox{\textvisiblespace}}
+  \begin{tabular}{|l|}
+      \hline
+      Type/Format\\
+      \hline
+      \hline
+      Normal rule
+      % \eqref{eqn:rule},
+      Slide~\pageref{eqn:rule}
+      \\
+      \(
+      1\myspace
+      \iota(a_0)\myspace
+      n\myspace
+      n\!-\!m\myspace
+      \iota(a_{m+1})\myspace\dots\myspace\iota(a_{n})\myspace
+      \iota(a_1)\myspace\dots\myspace\iota(a_{m})
+      \)\\
+      \hline
+      Cardinality rule
+      % \eqref{eqn:cardinality:rule},
+      Slide~\pageref{eqn:cardinality:rule}
+      \\
+      \(
+      2\myspace
+      \iota(a_0)\myspace
+      n\myspace
+      n\!-\!m\myspace
+      l\myspace
+      \iota(a_{m+1})\myspace\dots\myspace\iota(a_{n})\myspace
+      \iota(a_1)\myspace\dots\myspace\iota(a_{m})
+      \)\\
+      \hline
+      Choice rule
+      % \eqref{eqn:choice:rule},
+      Slide~\pageref{eqn:choice:rule}
+      \\
+      \(
+      3\myspace
+      m\myspace
+      \iota(a_1)\myspace\dots\myspace\iota(a_{m})\myspace
+      o\!-\!m\myspace
+      o\!-\!n\myspace
+      \iota(a_{n+1})\myspace\dots\myspace\iota(a_{o})\myspace
+      \iota(a_{m+1})\myspace\dots\myspace\iota(a_{n})
+      \)\\
+      \hline
+      Weight rule
+      % \eqref{eqn:weight:rule},
+      Slide~\pageref{eqn:weight:rule}
+      \\
+      \(
+      5\myspace
+      \iota(a_0)\myspace
+      l\myspace
+      n\myspace
+      n\!-\!m\myspace
+      \iota(a_{m+1})\myspace\dots\myspace\iota(a_{n})\myspace
+      \iota(a_1)\myspace\dots\myspace\iota(a_{m})\myspace
+      w_{m+1}\myspace\dots\myspace w_n\myspace
+      w_1\myspace\dots\myspace w_m
+      \)\\
+      \hline
+      Minimize statement\footnotemark
+      % \eqref{eq:minimize},
+      Slide~\pageref{eq:minimize}
+      \\
+      \(
+      6\myspace
+      0\myspace
+      n\myspace
+      n\!-\!m\myspace
+      \iota(a_{m+1})\myspace\dots\myspace\iota(a_{n})\myspace
+      \iota(a_1)\myspace\dots\myspace\iota(a_{m})\myspace
+      w_{m+1}\myspace\dots\myspace w_n\myspace
+      w_1\myspace\dots\myspace w_m
+      \)\\
+      \hline
+      Disjunctive rule
+      % \eqref{eqn:rule:disjunctive},
+      Slide~\pageref{eqn:rule:disjunctive}
+      \\
+      \(
+      8\myspace
+      m\myspace
+      \iota(a_1)\myspace\dots\myspace\iota(a_{m})\myspace
+      o\!-\!m\myspace
+      o\!-\!n\myspace
+      \iota(a_{n+1})\myspace\dots\myspace\iota(a_{o})\myspace
+      \iota(a_{m+1})\myspace\dots\myspace\iota(a_{n})
+      \)
+      \\
+      \hline
+    \end{tabular}
+    \\
+    \medskip
+    \normalsize
+    \begin{itemize}
+    \item<1-> The function $\iota$ represents a mapping of atoms to numbers
+    \end{itemize}
+\end{frame}
+% ----------------------------------------------------------------------
+%
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../main"
+%%% End:
