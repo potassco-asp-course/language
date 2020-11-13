@@ -1,48 +1,37 @@
-% ------------------------------------------------------------
-\begin{frame}{Weight rule}
+% ----------------------------------------------------------------------
+\begin{frame}[fragile]{Weight rule}
   \label{eqn:weight:rule}
   \begin{itemize}
-  \item \structure{Purpose} Bound (lower) sum of subsets of literal weights
-  \item \structure{Syntax} A \alert{weighted literal} $w:k$ associates the weight $w$ with literal $k$
-  \item \structure{Syntax} A \alert{weight rule} is the form
+  \item<only@1-2> \structure{Purpose} \ Bound (lower) sum of subsets of literal weights
+  \item \structure{Syntax} \ A \alert{weighted literal} $w:k$ associates weight $w$ with literal $k$
+  \item \structure{Syntax} \ A \alert{weight rule} is the form
     \[
       a_0\leftarrow l~\{\ w_1:a_1,\dots,w_m:a_m,w_{m+1}:\neg a_{m+1},\dots,w_n:\neg a_n\ \}
     \]
-    where $0\leq m\leq n$ and each $a_i$ is an atom;\\
-    $l$ and $w_i$ are integers for $1\leq i\leq n$
-    \medskip
-  \item<2-> \structure{Informal meaning}
-    The head atom belongs to the stable model,\\
+    where $0\leq m\leq n$ and each $a_i$ is an atom
+  \item [] and $l$ and $w_i$ are integers for $1\leq i\leq n$
+    \smallskip
+  \item<only@2> \structure{Informal meaning} \
+    The head belongs to the stable model,
     if the sum of weights associated with positive/negative body literals in/excluded in the stable model
     is at least $l$
-    \medskip
-  \item<3-> \structure{Note} A cardinality rule is a weight rule where $w_i=1$  for $0\leq i\leq n$
-  \end{itemize}
-\end{frame}
-% ------------------------------------------------------------
-\begin{frame}[fragile]{Weight constraints}
-  \begin{itemize}
-  \item \structure{Syntax} A \alert{weight constraint} is of the form
-    \[
-    l~\{\ w_1:a_1,\dots,w_m:a_m,w_{m+1}:\neg a_{m+1},\dots,w_n:\neg a_n\ \}~u
-    \]
-    where $0\leq m\leq n$ and each $a_i$ is an atom;\\
-    $l,u$ and $w_i$ are integers for $1\leq i\leq n$
-    \smallskip
-  \item<2-> \structure{Meaning} A weight constraint is satisfied by a stable model $X$, if
-    \[
-    l\leq\left(
-      \textstyle{\sum_{1\leq i\leq m, a_i    \in X}}\; w_i
-      +
-      \textstyle{\sum_{m <   i\leq n, a_i\not\in X}}\; w_i
-    \right)\leq u
-    \]
-  \item<3-> \structure{Note} (Cardinality and) weight constraints amount to constraints on (count and) sum aggregate functions
-    \medskip
-  \item<4-> \structure{Example}
+
+  \item<only@3-> \structure{Note}
+    \begin{itemize}\normalsize
+    \item A cardinality rule is a weight rule where $w_i=1$  for $0\leq i\leq n$
+    \item<only@4-> Weight constraints generalize cardinality constraints accordingly
+    \item<only@4->[] and amount to constraints on count and sum aggregate functions
+    \end{itemize}
+
+  \item<only@5-> \structure{Example}
 \begin{lstlisting}[basicstyle=\ttfamily\small]
 5 { 4:course(db); 6:course(ai); 3:course(xml) } 10
 \end{lstlisting}
   \end{itemize}
 \end{frame}
-% ----------------------------------------------------------------------
+% --------------------------------------------------------------------------------
+%
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../main"
+%%% End:

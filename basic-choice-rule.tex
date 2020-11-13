@@ -26,7 +26,7 @@
 % ----------------------------------------------------------------------
 \begin{frame}{Embedding in normal rules}
   \begin{itemize}
-  \item A choice rule of form
+  \item<1-> A choice rule of form
     \[
     \{\alert<3>{a_1},\dots,\alert<3>{a_m}\}\leftarrow \alert<2>{a_{m+1},\dots,a_n,\neg a_{n+1},\dots,\neg a_o}
     \]
@@ -41,10 +41,10 @@
     \]
     by introducing new atoms $x,x_1,\dots,x_m$
     \smallskip
-  \item<2-> \structure{Example program}
+  \item<4-> \structure{Example program}
     \begin{align*}
-      \only<2>{& \{\;\{a\}\leftarrow b,\ b\leftarrow\;\}&\{b\}\quad\{a,b\}}
-      \only<3->{
+      \only<4>{& \{\;\{a\}\leftarrow b,\ b\leftarrow\;\}&\{b\}\quad\{a,b\}}
+      \only<5->{
       \left\{
       \begin{array}{rcl}
         x&\leftarrow& b         \\
@@ -53,7 +53,7 @@
       \end{array}
       \right\}
       &\cup \left\{\;b\leftarrow\;\right\}
-      &\uncover<4->{\{b,x,x_1\}\quad\{a,b,x\}}}
+      &\uncover<6->{\{b,x,x_1\}\quad\{a,b,x\}}}
     \end{align*}
   \end{itemize}
 \end{frame}
