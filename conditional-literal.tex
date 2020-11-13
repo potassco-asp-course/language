@@ -1,30 +1,36 @@
+% ----------------------------------------------------------------------
 \begin{frame}[fragile]{Conditional literals}
   \begin{itemize}
-  \item \structure{Syntax} A \alert{conditional literal} is of the form
+  \item \structure{Syntax} \ A \alert{conditional literal} is of the form
     \[
      l:l_1,\dots, l_n
     \]
     where $l$ and $l_i$ are literals for $0\leq i\leq n$
-  \item \structure{Informal meaning}
-    A conditional literal can be regarded as the list of elements in the
-    set $\{ l\mid l_1,\dots, l_n\}$
-  \item<2-> \structure{Note} The expansion of conditional literals is context dependent
-  \item<3-> \structure{Example} \
-  Given `\;\verb+p(1..3).  q(2).+'
+    \medskip
+  \item<only@2-3> \structure{Informal meaning} \
+    A (non-ground) conditional literal can be
 
-  \smallskip%
-  \parbox{\linewidth}{\footnotesize%
-  \begin{semiverbatim}
-  \alert<4,5>{r(X)\,:\,p(X)\!,\,not\,q(X)} :- \alert<4,6>{r(X)\,:\,p(X)\!,\,not\,q(X)}; 1\,\{\,\alert<4,7>{r(X)\,:\,p(X)\!,\,not\,q(X)}\,\}.
-  \end{semiverbatim}}
-
-  \smallskip
-  is instantiated to
-
-  \medskip%
-  \parbox{\linewidth}{\footnotesize%
-  \begin{semiverbatim}
-  \alert<5>{r(1); r(3)} :- \alert<6>{r(1), r(3)}, 1 \{~\alert<7>{r(1); r(3)} \}.
-  \end{semiverbatim}}
+    regarded as the collection of elements in the set $\{ l\mid l_1,\dots, l_n\}$
+  \item<only@3-3>[] \itarrow\ The expansion of this collection is context dependent
+  \item<only@4-> \structure{Example} \ Assume `\;\verb+p(1..3).  q(2).+'
+    \begin{itemize}\normalsize
+    \item \ \texttt{r(X)\,:\,p(X)\!,\,not\,q(X)} \quad yields \quad \texttt{r(1)} and \texttt{r(3)}
+    \end{itemize}
+    \smallskip
+  \item<only@5>[] The rule
+\begin{lstlisting}[basicstyle=\small\ttfamily]
+r(X) : p(X), not q(X) :- r(X) : p(X), not q(X);
+                     1 { r(X) : p(X), not q(X) }.
+\end{lstlisting}
+    is instantiated to
+\begin{lstlisting}[basicstyle=\small\ttfamily]
+r(1); r(3) :- r(1), r(3), 1 { r(1); r(3) }.
+\end{lstlisting}
   \end{itemize}
 \end{frame}
+% ----------------------------------------------------------------------
+%
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../main"
+%%% End:
