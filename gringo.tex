@@ -1,7 +1,5 @@
-% ------------------------------------------------------------
-\newcommand{\aggr}[1]{\ensuremath{\mathtt{\# #1}}}
-% ------------------------------------------------------------
-\begin{frame}{Gringo language}
+% ----------------------------------------------------------------------
+\begin{frame}{Gringo's input and output language}
   \begin{center}
     \small
     \setlength{\unitlength}{.75pt}
@@ -20,18 +18,18 @@
       \put(-217, 62.5){\emph{Modeling}}
       \put( 165, 62.5){\emph{Interpreting}}
       \put(   0,30){\makebox(0,0){\emph{Solving}}}
-%
-      \onslide<2->{\put(   0,-32.5){\makebox(0,0){\alert<2>{\textbf{aspif format}}}}}
-      \onslide<3->{\put(-160,-32.5){\makebox(0,0){\alert<3-4>{\textbf{gringo format}}}}}
+      %
+      \onslide<2->{\put(-160,-32.5){\makebox(0,0){\alert<2>{\textbf{gringo format}}}}}
+      \onslide<3->{\put(   0,-32.5){\makebox(0,0){\alert<3>{\textbf{aspif format}}}}}
     \end{picture}
   \end{center}
 \begin{itemize}
-\item<2-> \textcolor{structure}{aspif format} is a \alert<2>{machine-oriented} standard for ground programs
-\item<3-> \textcolor{structure}{gringo format} is a \alert<3>{user-oriented} language for (non-ground) programs
+\item<2-> \textcolor{structure}{gringo format} is a \alert{user-oriented} language for (non-ground) programs
   extending the ASP language standard \emph{ASP-Core-2} \cite{cafageiakakrlemarisc20a}
+\item<3-> \textcolor{structure}{aspif format} is a \alert{machine-oriented} standard for ground programs
 \end{itemize}
 \end{frame}
-% ------------------------------------------------------------
+% ----------------------------------------------------------------------
 \begin{frame}{Terms and literals}
   \begin{itemize}
   \item<2-> \structure{Terms} \ $t$ \
@@ -86,19 +84,19 @@
       \item<19|only@19> one (or both) of `$s_1\prec_1$' and `$\prec_2 s_2$' can be omitted
       \item<20|only@20> omitting $\prec_1$ or $\prec_2$ defaults to $\leq$
       \end{itemize}
-      \only<21-22>{eg \ \texttt{10\;\only<21>{<=\;}\aggr{sum}\;\{6,C:course(C);\;3,S:seminar(S)\}\only<21>{\;<=}\;20}}}
+      \only<21-22>{eg \ \texttt{10\;\only<21>{<=\;}{\#sum}\;\{6,C:course(C);\;3,S:seminar(S)\}\only<21>{\;<=}\;20}}}
   \item<23-> \structure{Aggregate literals} \ $a$, $\neg a$, $\neg \neg a$
     \only<23-24>{\ where
       \begin{itemize}
       \item<23-> $a$ is an aggregate atom
       \end{itemize}
-    \only<24>{eg \ \texttt{not 10\;\aggr{sum}\;\{6,C:course(C);\;3,S:seminar(S)\}\;20}}}
+    \only<24>{eg \ \texttt{not 10\;{\#sum}\;\{6,C:course(C);\;3,S:seminar(S)\}\;20}}}
   \item<25-> \structure{Literals} \only<20->{are conditional or aggregate literals}
     \medskip
   \item<only@26> For a detailed account please consult the user's guide!
   \end{itemize}
 \end{frame}
-%------------------------------------------------------------
+% ----------------------------------------------------------------------
 \begin{frame}{Rules}
   \begin{itemize}
   \item \structure{Rules} are of the form
@@ -119,7 +117,7 @@
   %   \phantom{Note }$l_1\,;\dots\;;l_m\leftarrow  l_{m+1};\dots;l_n$
   \end{itemize}
 \end{frame}
-%------------------------------------------------------------
+% ----------------------------------------------------------------------
 \begin{frame}{Shortcuts}
   \begin{itemize}
   \item A rule of the form
@@ -141,10 +139,10 @@
                 &\leftarrow  l_{m+1},\dots, l_n,\neg{~s_1\prec_1\alpha\{\boldsymbol{t}_1:l_1,\boldsymbol{L}_1;\dots;\boldsymbol{t}_k:l_k,\boldsymbol{L}_k\}\prec_2 s_2}
       \end{align*}
   \item<3-> \structure{Example} \
-    \texttt{10 < \#\texttt{sum} \{ C,X,Y : edge(X,Y) : cost(X,Y,C) \}.}
+    \texttt{10 < {\#sum} \{ C,X,Y : edge(X,Y), cost(X,Y,C) \}.}
   \end{itemize}
 \end{frame}
-% ------------------------------------------------------------
+% ----------------------------------------------------------------------
 \begin{frame}{Shortcuts}
   \begin{itemize}
   \item The expression
@@ -172,23 +170,26 @@
   \item<2-> \structure{Note} one (or both) of $s_1$ and $s_2$ can be omitted
   \end{itemize}
 \end{frame}
-% ------------------------------------------------------------
+% ----------------------------------------------------------------------
 \begin{frame}[fragile]{Examples}
   \begin{itemize}
-  \item<2-> \texttt{\{a; b\}}
+  \item<2-> \structure{Example} \ \texttt{\{a; b\}}
 
 \begin{semiverbatim}
 \uncover<2->{$ gringo --text <(echo "\{a;b\}.")}
-\uncover<3->{#count\{1,0,a:a;1,0,b:b\}.}
+\uncover<3->{#count\{ 1,0,a:a; 1,0,b:b \}.}
 \end{semiverbatim}
 \pause[4]
 \gringo\ generates two distinct term tuples \lstinline{1,0,a} and \lstinline{1,0,b}
 \medskip
-  \item<5-> \texttt{1 = \{ q(X,Y): p(X), p(Y), X < Y; q(X,X): p(X) \}}
+\item<5-> \structure{Example} \ Why ``;''?
+\begin{lstlisting}[basicstyle=\ttfamily\small]
+  { q(X,Y): p(X), p(Y), X < Y; q(X,X): p(X) } = 1
+\end{lstlisting}
   \end{itemize}
 \end{frame}
-% ------------------------------------------------------------
-\begin{frame}{Weak constraints}
+% ----------------------------------------------------------------------
+\begin{frame}[fragile]{Weak constraints}
   \begin{itemize}
   \item \structure{Syntax} A \alert{weak constraint} is of the form
     \[
@@ -196,19 +197,19 @@
     \]
     where
     \begin{itemize}
-    \item $l_1, \dots,  l_n$ are literals
+    \item $l_1, \dots, l_n$ are literals
     \item $t_1, \dots, t_m$, $w$, and $p$ are terms
     \end{itemize}
   \item<2-> $w$ and $p$ stand for a weight and priority level ($p=0$ if `$@p$' is omitted)
   \item<3-> \structure{Example}
     The weak constraint
-    \begin{align*}
-      \leftsquigarrow \text{\texttt{hd(I,P,C).}}\,\text{\texttt{[C@2,I]}}
-    \end{align*}
+\begin{lstlisting}
+:~ hd(I,P,C). [C@2,I]
+\end{lstlisting}
     \pause[4] amounts to the minimize statement
-    \[
-      \text{\texttt{\#minimize\{ C@2,I : hd(I,P,C) \}.}}
-    \]
+\begin{lstlisting}
+#minimize{ C@2,I : hd(I,P,C) }.
+\end{lstlisting}
   \end{itemize}
 \end{frame}
 % ----------------------------------------------------------------------
@@ -232,42 +233,7 @@
     \]
   \end{itemize}
 \end{frame}
-% ------------------------------------------------------------
-\begin{frame}{\gringo~3 versus 4/5}
-\begin{itemize}
-\item The input language of \gringo\ series 4/5 comprises
-  \begin{itemize}
-  \item ASP-Core-2
-  \item concepts from \lparse\ and \gringo\ 3
-  \end{itemize}
-\item<2-> \structure{Example}
-  The \gringo\ 3 rule
-  \begin{itemize}
-  \item
-\begin{semiverbatim}
-  r(X) : p(X) : not q(X) :- r(X) : p(X) : not q(X),
-
-  \ \ \ \ \ \ 1 \{\ r(X) : p(X) : not q(X) \}.
-\end{semiverbatim}
-
-  \item<3->[] can be written as follows in the language of \gringo\ 4/5:
-    \smallskip
-  \item<3->
-\begin{semiverbatim}
-  r(X) : p(X), not q(X) :- r(X) : p(X), not q(X);
-
-  \ \ \ \ \ \ \only<3>{1 <= \#count \{\ 1,r(X) : r(X), p(X), not q(X) \}.}\only<4->{1 \{\ r(X) : p(X), not q(X) \}.}
-\end{semiverbatim}
-  \end{itemize}
-\item<5-> \structure{Note} Directives {\small\lstinline{\#compute}}, {\small\lstinline{\#domain}}, and {\small\lstinline{\#hide}} are discontinued
-\item<6-> \structure{Attention}
-  \begin{itemize}
-  \item The languages of \gringo\ 3 and 4/5 are not fully compatible
-  \item Many example programs in the literature are written for \gringo\ 3
-  \end{itemize}
-\end{itemize}
-\end{frame}
-% ------------------------------------------------------------
+% ----------------------------------------------------------------------
 %
 %%% Local Variables:
 %%% mode: latex
