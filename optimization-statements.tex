@@ -2,23 +2,26 @@
 \begin{frame}{Optimization statement}
   \label{eq:minimize}
   \begin{itemize}
-  \item \structure{Purpose} Express (multiple) cost functions subject to minimization\\ and/or maximization
-  \item \structure{Syntax} A \alert{minimize statement} is of the form
+  \item \structure{Purpose} \ Express (multiple) cost functions subject to minimization\\ (and/or maximization)
+    \smallskip
+  \item \structure{Syntax} \ A \alert{minimize statement} is of the form
     \[
     \mathit{minimize}~\{\ {w_1@p_1}\mathbin{:}{ l_{1_1},\dots, l_{m_1}};
                           \dots;
                           {w_n@p_n}\mathbin{:}{ l_{1_n},\dots, l_{m_n}}\ \}.
     \]
-    where each $l_{j_i}$ is a literal;
+    where each $l_{j_i}$ is a literal
     and $w_i$ and $p_i$ are integers for $1\leq i\leq n$
     \smallskip
-  \item<2-> [] Priority levels, $p_i$, allow for representing lexicographically ordered minimization objectives
+  \item<2-> [] priority levels, $p_i$, allow for representing lexicographically ordered minimization objectives
 %,    greater levels being more significant than smaller ones
     \smallskip
-  \item<3-> \structure{Meaning} A minimize statement is a directive that instructs the ASP solver to
-    compute optimal stable models by minimizing a weighted sum of elements
+  \item<3-> \structure{Meaning} \ A minimize statement is a directive that instructs the
+
+    ASP solver to compute optimal stable models by minimizing a sum of weights (by descending levels)
   \end{itemize}
 \end{frame}
+% ----------------------------------------------------------------------
 \begin{frame}[fragile]{Optimization statement}
   \begin{itemize}
   \item<1-> A maximize statement of the form
@@ -30,16 +33,17 @@
     \mathit{minimize}~\{\ {-}w_1@p_1:l_1,\dots,{-}w_n@p_n:l_n\ \}
     \)
     \medskip
-  \item<2-> \structure{Example}
+  \item<2-> \structure{Example} \
     When configuring a computer, we may want to maximize hard disk capacity,
     while minimizing price
+    \medskip
 
-\parbox{\linewidth}{\footnotesize%
 \begin{semiverbatim}
-  \#maximize \{\ \alt<3->{C@1:hd(I,P,C)}{250@1:hd(1); 500@1:hd(2); 750@1:hd(3); 1000@1:hd(4)} \}.
+  \#maximize \{\ \alt<3->{C@1:hd(I,P,C)}{250@1:hd(1); 500@1:hd(2); 750@1:hd(3)} \}.
+  \#minimize \{\ \alt<3->{P@2:hd(I,P,C)}{30@2:hd(1);  40@2:hd(2);  60@2:hd(3)} \}.
+\end{semiverbatim}
 
-  \#minimize \{\ \alt<3->{P@2:hd(I,P,C)}{30@2:hd(1);  40@2:hd(2);  60@2:hd(3);   80@2:hd(4)} \}.
-\end{semiverbatim}}
+    \smallskip
 
   \item<2-> [] The priority levels indicate that (minimizing) price is more important than (maximizing) capacity
   \end{itemize}
@@ -60,8 +64,7 @@
 \begin{semiverbatim}
 \alt<4->{ :~ hd(I,P,C). [P@2]}{ :~ hd(1). [30@2]
  :~ hd(2). [40@2]
- :~ hd(3). [60@2]
- :~ hd(4). [80@2]}
+ :~ hd(3). [60@2]}
 \end{semiverbatim}
   \end{itemize}
 \end{frame}
