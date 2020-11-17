@@ -1,0 +1,37 @@
+% ----------------------------------------------------------------------
+\begin{frame}{Gringo's input and output language}
+  \begin{center}
+    \small
+    \setlength{\unitlength}{.75pt}
+    \begin{picture}(420,180)(-210,-35)
+      \put(-200,110){\framebox(80,40){Problem}}
+      \put(-200,-20){\framebox(80,40){\shortstack{Logic\\Program}}}
+      \put(-80,-15){\framebox(60,30){Grounder}}
+      \put(  20,-15){\framebox(60,30){Solver}}
+      \put( 120,-20){\framebox(80,40){\shortstack{Stable\\Models}}}
+      \put( 120,110){\framebox(80,40){Solution}}
+      \put(-120,0){\vector(1,0){40}}
+      \put( -20,0){\vector(1,0){40}}
+      \put(  80,0){\vector(1,0){40}}
+      \put(-160,110){\vector(0,-1){90}}
+      \put( 160, 20){\vector(0, 1){90}}
+      \put(-217, 62.5){\emph{Modeling}}
+      \put( 165, 62.5){\emph{Interpreting}}
+      \put(   0,30){\makebox(0,0){\emph{Solving}}}
+      %
+      \onslide<2->{\put(-160,-32.5){\makebox(0,0){\alert<2>{\textbf{gringo format}}}}}
+      \onslide<3->{\put(   0,-32.5){\makebox(0,0){\alert<3-4>{\textbf{aspif\only<4>{/smodels} format}}}}}
+    \end{picture}
+  \end{center}
+\begin{itemize}
+\item<2-> \textcolor{structure}{gringo format} is a \alert{user-oriented} language for (non-ground) programs
+  extending the ASP language standard \emph{ASP-Core-2} \cite{cafageiakakrlemarisc20a}
+\item<3-> \textcolor{structure}{aspif format} is a \alert{machine-oriented} standard for ground programs
+\end{itemize}
+\end{frame}
+% ----------------------------------------------------------------------
+%
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../main"
+%%% End:
