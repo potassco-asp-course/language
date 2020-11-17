@@ -22,6 +22,7 @@
   \newcommand\Space{\textvisiblespace}
   Rule statements have the form
   \hfill \(1 \Space H \Space B\)\qquad\qquad
+  \smallskip
   \begin{itemize}
   \item<2-> Head $H$ has form
     \hfill\(h \Space m \Space a_1 \Space \dots \Space a_m\)\qquad\qquad
@@ -30,14 +31,16 @@
     \item $m \geq 0$ is the number of head elements, and
     \item each $a_i$ is a positive literal
     \end{itemize}
-  \item<2->[] Heads are disjunctions or choices, including the special case of singular disjunctions for representing normal rules.
-  \item<3-> Body $B$ has one of two forms
+    \smallskip
+  \item<only@3> \structure{Note} \
+    Heads are disjunctions or choices, including the special\\ case of singular disjunctions for representing normal rules
+  \item<only@4-> Body $B$ has one of two forms
     \begin{itemize}
     \item normal bodies have form
       \hfill\(\texttt{0} \Space n \Space l_{1} \Space \dots \Space l_n\)\qquad\qquad
       \begin{itemize}
       \item $n \geq 0$ is the length of the rule body, and
-      \item each $l_i$ is a literal.
+      \item each $l_i$ is a literal
       \end{itemize}
     \item weight bodies have form
       \hfill\(\texttt{1} \Space l \Space n \Space l_1 \Space w_1  \Space \dots \Space l_n \Space w_n\)\qquad\qquad
@@ -47,7 +50,9 @@
       \item each $l_i$ and $w_i$ are a literal and a positive integer
       \end{itemize}
     \end{itemize}
-%  \item All types of ASP rules are included in the above rule format
+
+  \item<only@5>  \structure{Note} \
+    All types of rules are included in the above rule format
   \end{itemize}
 \end{frame}
 % ----------------------------------------------------------------------
