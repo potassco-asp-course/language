@@ -1,5 +1,6 @@
 % ----------------------------------------------------------------------
 \begin{frame}{\smodels\ format}
+  \medskip
   \begin{itemize}
   \item The \smodels\ format consists of
     \begin{itemize}
@@ -9,8 +10,8 @@
     \item weight rules
     \item minimization statements
     \end{itemize}
+    \medskip
   \item Block-oriented format
-  \item<2-> \structure{Note} Minimization statements are not part of the logic program
   \end{itemize}
 \end{frame}
 % ----------------------------------------------------------------------
@@ -116,6 +117,18 @@
     \begin{itemize}
     \item<1-> The function $\iota$ represents a mapping of atoms to numbers
     \end{itemize}
+\end{frame}
+% ----------------------------------------------------------------------
+\begin{frame}[fragile,c]{Example}
+\begin{center}
+{\begin{minipage}[t]{0.3\textwidth}
+\lstinputlisting{language/encodings/ezy.lp}%
+\end{minipage}}%
+\qquad\pause\qquad%\frame%
+{\begin{minipage}[t]{0.3\textwidth}
+\lstinputlisting{language/encodings/ezy.smodels}%
+\end{minipage}}%
+\end{center}
 \end{frame}
 % ----------------------------------------------------------------------
 %
