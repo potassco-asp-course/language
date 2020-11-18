@@ -79,17 +79,17 @@
     \item $l_i$ is a literal for $m+1\leq i\leq n$
     \end{itemize}
     \medskip
-  \item<2-> \structure{Note} Semicolons `;' must be used in \eqref{eq:aspcore:normal:rule} instead of commas `,'
+  \item<2-> \structure{Note} \ Semicolons `;' must be used in \eqref{eq:aspcore:normal:rule} instead of commas `,'
     \par whenever some $l_i$ is a (genuine) conditional literal for $1\leq i\leq n$
   \item<3-> \structure{Example} \  \texttt{a(X) :- b(X) : c(X), d(X)\alert{;} e(x).}
-  % \item<5-> \structure{Note} $l_1\,;\dots\;;l_m\leftarrow  l_{m+1},\dots, l_n$ is the same as
-  %   \phantom{Note }$l_1\,;\dots\;;l_m\leftarrow  l_{m+1};\dots;l_n$
+  \item<4-> \structure{Note} \ $l_1\,;\dots\;;l_m\leftarrow  l_{m+1},\dots, l_n$ is the same as
+  \\ \phantom{Note} \ $l_1\,;\dots\;;l_m\leftarrow  l_{m+1};\dots;l_n$
   \end{itemize}
 \end{frame}
 % ----------------------------------------------------------------------
 \begin{frame}{Shortcuts}
   \begin{itemize}
-  \item A rule of the form
+  \item<2-> A rule of the form
     \[
     \alert<1>{s_1\prec_1\alpha\{\boldsymbol{t}_1:l_1:\boldsymbol{L}_1;\dots;\boldsymbol{t}_k:l_k:\boldsymbol{L}_k\}\prec_2 s_2}
     \ \leftarrow \
@@ -102,7 +102,7 @@
     \item $l_i$ is a literal for $m+1\leq i\leq n$ \ (as in \eqref{eq:aspcore:normal:rule})
     \end{itemize}
     \medskip
-  \item<2->[] is a shorthand for the following $k+1$ rules
+  \item<3->[] is a shorthand for the following $k+1$ rules
     \begin{align*}\hspace{-10pt}
       \{ l_j\}&\leftarrow  l_{m+1},\dots, l_n,\boldsymbol{L}_j\qquad\qquad\text{ for }1\leq j\leq k\\
                 &\leftarrow  l_{m+1},\dots, l_n,\neg{~s_1\prec_1\alpha\{\boldsymbol{t}_1:l_1,\boldsymbol{L}_1;\dots;\boldsymbol{t}_k:l_k,\boldsymbol{L}_k\}\prec_2 s_2}
@@ -120,7 +120,7 @@
     \]
     is a shortcut for
 
-    \begin{itemize}
+    \begin{itemize}\normalsize
     \item
       \(
       s_1\leq\mathit{count}\{t_1:l_1:\boldsymbol{L}_1;\dots;t_k:l_k:\boldsymbol{L}_k\}\leq s_2
@@ -136,7 +136,8 @@
       if it appears in the body of a rule
     \end{itemize}
     where $t_i\neq t_j$ whenever $l_i\neq l_j$ for $i\neq j$ and $1\leq i,j\leq k$
-  \item<2-> \structure{Note} one (or both) of $s_1$ and $s_2$ can be omitted
+    \medskip
+  \item<2-> \structure{Note} \ one (or both) of $s_1$ and $s_2$ can be omitted
   \end{itemize}
 \end{frame}
 % ----------------------------------------------------------------------
@@ -167,7 +168,7 @@
 \uncover<3->{#count\{ 1,0,a : a; 1,0,b : b \}.}
 \end{semiverbatim}
 \smallskip
-\item<only@22->[] \gringo\ generates two distinct term tuples \lstinline{1,0,a} and \lstinline{1,0,b}
+\item<only@22->[]\itarrow\ \ \gringo\ generates two distinct term tuples \lstinline{(1,0,a)} and \lstinline{(1,0,b)}
 \medskip
 \item<only@23-> \structure{Example} \ Why ``;''?
   \pause[24]
